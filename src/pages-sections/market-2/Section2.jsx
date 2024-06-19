@@ -55,8 +55,8 @@ const Section2 = ({ serviceList }) => {
                             }}
                         />
                         <Box>
-                            <H4 lineHeight={1.3}>{item.title}</H4>
-                            <Span color="grey.600">{item.description}</Span>
+                            <H4 lineHeight={1.3}>{item?.title}</H4>
+                            <Span color="grey.600">{item?.description}</Span>
                         </Box>
                     </ServiceItem>
                 );

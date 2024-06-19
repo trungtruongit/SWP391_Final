@@ -14,8 +14,8 @@ export default function OrderEdit() {
   const { query } = useRouter();
   const [orderDetails, setOrderDetails] = useState(null);
   useEffect(() => {
-    api.getOrder(query.id).then((data) => setOrderDetails(data));
-  }, [query.id]);
+    api.getOrder(query?.id).then((data) => setOrderDetails(data));
+  }, [query?.id]);
 
   if (!orderDetails) {
     return <h1>Loading...</h1>;

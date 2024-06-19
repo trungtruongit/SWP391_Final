@@ -37,12 +37,12 @@ const Section4 = ({ products }) => {
             </FlexBetween>
 
             <Carousel
-                totalSlides={products.length}
+                totalSlides={products?.length}
                 visibleSlides={visibleSlides}
                 sx={carouselStyled}
             >
                 {products.map((product) => (
-                    <ProductCard20 product={product} key={product.id} />
+                    <ProductCard20 product={product} key={product?.id} />
                 ))}
             </Carousel>
         </Container>

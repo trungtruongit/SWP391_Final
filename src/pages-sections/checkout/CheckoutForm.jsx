@@ -5,10 +5,8 @@ import { Button, Divider, Grid, Typography } from "@mui/material";
 import * as yup from "yup";
 import { Formik } from "formik";
 import Card1 from "components/Card1";
-import { SearchOutlinedIcon } from "../../components/search-box/styled";
 import axios from "axios";
 import { H4, H5, Paragraph } from "components/Typography";
-import ProductCard7 from "../../components/product-cards/ProductCard7";
 import { useAppContext } from "../../contexts/AppContext";
 import { jwtDecode } from "jwt-decode";
 import { currency } from "../../lib";
@@ -19,8 +17,7 @@ const CheckoutForm = () => {
     const cartList = state.cart;
     const [customerId, setCustomerId] = useState(0);
     const [customerShowInfo, setCustomerShowInfo] = useState("");
-    const [customerInfo, setCustomerInfo] = useState("");
-    const [dataNumSearch, setDataNumSearch] = useState("");
+
     let token = "";
     const handleWaiting = () => {
         router.push("/waiting");
@@ -35,28 +32,28 @@ const CheckoutForm = () => {
         console.log("Web Storage is not supported in this environment.");
     }
     const decoded = jwtDecode(token);
-    const productName = cartList.map((item) => ({
-        productId: item.id,
-        quantity: item.qty,
-        price: item.price,
+    const productName = cartList?.map((item) => ({
+        productId: item?.id,
+        quantity: item?.qty,
+        price: item?.price,
     }));
     const getTotalPrice = () =>
-        cartList.reduce((accum, item) => accum + item.price * item.qty, 0);
+        cartList.reduce((accum, item) => accum + item?.price * item?.qty, 0);
     const tax = getTotalPrice() * 0.08;
     const totalBill = tax + getTotalPrice();
-    const productIds = cartList.map((item) => ({
-        id: item.id,
-        qty: item.qty,
-        price: item.price,
-        name: item.name,
+    const productIds = cartList?.map((item) => ({
+        id: item?.id,
+        qty: item?.qty,
+        price: item?.price,
+        name: item?.name,
     }));
 
     useEffect(() => {
-        if (router.query.customerId) {
-            const customerIdNum = parseInt(router.query.customerId, 10);
+        if (router?.query?.customerId) {
+            const customerIdNum = parseInt(router.query?.customerId, 10);
             setCustomerId(customerIdNum);
         }
-    }, [router.query.customerId]);
+    }, [router?.query?.customerId]);
     useEffect(() => {
         const fetchGetCusById = async () => {
             if (!customerId) return;
@@ -81,7 +78,7 @@ const CheckoutForm = () => {
     const handleFormSubmit = async () => {
         const orderNew = {
             customerId: customerId,
-            userId: decoded.id,
+            userId: decoded?.id,
             amount: totalBill,
             productItemRequestList: productName,
         };
@@ -96,8 +93,8 @@ const CheckoutForm = () => {
                     },
                 }
             );
-            console.log(createOrder.data.data.orderId);
-            localStorage.setItem("orderId", createOrder.data.data.orderId);
+            console.log(createOrder?.data?.data?.orderId);
+            localStorage.setItem("orderId", createOrder?.data?.data?.orderId);
         } catch (error) {
             console.error("Failed to create order:", error);
         }
@@ -158,7 +155,7 @@ const CheckoutForm = () => {
                                     >
                                         Full Name:
                                     </H5>
-                                    {customerShowInfo.name}
+                                    {customerShowInfo?.name}
                                 </Grid>
                                 <Grid
                                     sx={{
@@ -174,7 +171,7 @@ const CheckoutForm = () => {
                                     >
                                         Phone Number:
                                     </H5>
-                                    {customerShowInfo.phoneNumber}
+                                    {customerShowInfo?.phoneNumber}
                                 </Grid>
                                 <Grid
                                     sx={{
@@ -190,7 +187,7 @@ const CheckoutForm = () => {
                                     >
                                         Address:
                                     </H5>
-                                    {customerShowInfo.address}
+                                    {customerShowInfo?.address}
                                 </Grid>
                             </Grid>
 
@@ -209,7 +206,7 @@ const CheckoutForm = () => {
                                     >
                                         Email:
                                     </H5>
-                                    {customerShowInfo.email}
+                                    {customerShowInfo?.email}
                                 </Grid>
                                 <Grid
                                     sx={{
@@ -225,7 +222,7 @@ const CheckoutForm = () => {
                                     >
                                         Gender:
                                     </H5>
-                                    {customerShowInfo.gender}
+                                    {customerShowInfo?.gender}
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -237,7 +234,7 @@ const CheckoutForm = () => {
                             }}
                         />
                         <Grid item sm={12} xs={12}>
-                            {productIds.map((product) => (
+                            {productIds?.map((product) => (
                                 <Grid
                                     container
                                     sx={{
@@ -245,7 +242,7 @@ const CheckoutForm = () => {
                                         marginBottom: "15px",
                                         alignItems: "center",
                                     }}
-                                    key={product.id}
+                                    key={product?.id}
                                 >
                                     <Grid item sm={9} xs={12}>
                                         <H4
@@ -254,7 +251,7 @@ const CheckoutForm = () => {
                                                 marginTop: "1px",
                                             }}
                                         >
-                                            {product.name}
+                                            {product?.name}
                                         </H4>
                                     </Grid>
                                     <Grid item sm={3} xs={12}>
@@ -273,7 +270,7 @@ const CheckoutForm = () => {
                                                     ml: 15,
                                                 }}
                                             >
-                                                Quantity: {product.qty}
+                                                Quantity: {product?.qty}
                                             </H5>
                                             <H5
                                                 sx={{
@@ -282,7 +279,8 @@ const CheckoutForm = () => {
                                                     ml: 15,
                                                 }}
                                             >
-                                                Price: {currency(product.price)}
+                                                Price:{" "}
+                                                {currency(product?.price)}
                                             </H5>
                                         </Grid>
                                     </Grid>

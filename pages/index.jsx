@@ -41,7 +41,7 @@ const Market = (props) => {
                         },
                     }
                 );
-                setShowBraceletProduct(resBraceletProduct.data.data);
+                setShowBraceletProduct(resBraceletProduct?.data?.data);
                 // console.log(resBraceletProduct.data.data);
             } catch (e) {
                 console.log(e);
@@ -63,7 +63,7 @@ const Market = (props) => {
                         },
                     }
                 );
-                setShowRingProduct(resRingProduct.data.data);
+                setShowRingProduct(resRingProduct?.data?.data);
             } catch (e) {
                 console.log(e);
             }
@@ -84,7 +84,7 @@ const Market = (props) => {
                         },
                     }
                 );
-                setShowEarringProduct(resEarringProduct.data.data);
+                setShowEarringProduct(resEarringProduct?.data?.data);
             } catch (e) {
                 console.log(e);
             }
@@ -105,7 +105,7 @@ const Market = (props) => {
                         },
                     }
                 );
-                setShowNecklaceProduct(resNecklacesProduct.data.data);
+                setShowNecklaceProduct(resNecklacesProduct?.data?.data);
             } catch (e) {
                 console.log(e);
             }
@@ -126,7 +126,7 @@ const Market = (props) => {
                         },
                     }
                 );
-                setShowCharmProduct(resCharmProduct.data.data);
+                setShowCharmProduct(resCharmProduct?.data?.data);
             } catch (e) {
                 console.log(e);
             }
@@ -147,9 +147,9 @@ const Market = (props) => {
             // Attempt to decode the token
             const decoded = jwtDecode(token);
             // console.log(decoded.counterId);
-            localStorage.setItem("counterId", decoded.counterId);
+            localStorage.setItem("counterId", decoded?.counterId);
             const counterId = localStorage.getItem("counterId");
-            if (decoded.role === "staff") {
+            if (decoded?.role === "staff") {
                 // Redirect to home page for staff
                 router.push("/");
             } else {
@@ -163,13 +163,13 @@ const Market = (props) => {
             <SEO title="FourGemsShop" />
             <Box bgcolor="#FFFFFF">
                 {/* HERO SLIDER AND GRID */}
-                <Section1 carouselData={props.mainCarouselData} />
+                <Section1 carouselData={props?.mainCarouselData} />
 
                 {/* SERVICE CARDS */}
-                <Section2 serviceList={props.serviceList} />
+                <Section2 serviceList={props?.serviceList} />
 
                 {/* CATEGORIES AND ANIMATED OFFER BANNER */}
-                <Section3 categories={props.categories} />
+                <Section3 categories={props?.categories} />
 
                 {/* Necklaces */}
                 <Section5 products={showNecklaceProduct} />
@@ -203,14 +203,14 @@ const Market = (props) => {
 };
 
 export const getStaticProps = async () => {
-    const brands = await api.getBrands();
-    const products = await api.getProducts();
-    const serviceList = await api.getServices();
-    const categories = await api.getCategories();
-    const mainCarouselData = await api.getMainCarouselData();
-    const menFashionProducts = await api.getMenFashionProducts();
-    const electronicsProducts = await api.getElectronicsProducts();
-    const womenFashionProducts = await api.getWomenFashionProducts();
+    const brands = await api?.getBrands();
+    const products = await api?.getProducts();
+    const serviceList = await api?.getServices();
+    const categories = await api?.getCategories();
+    const mainCarouselData = await api?.getMainCarouselData();
+    const menFashionProducts = await api?.getMenFashionProducts();
+    const electronicsProducts = await api?.getElectronicsProducts();
+    const womenFashionProducts = await api?.getWomenFashionProducts();
     return {
         props: {
             brands,

@@ -87,11 +87,11 @@ export default function OrderList({ orders }) {
     }, []);
     console.log(orderInfo);
     const filteredOrders = orderInfo.map((order) => ({
-        orderId: order.orderId,
-        customerName: order.customerName,
-        orderDate: order.orderDate,
-        totalAmount: order.totalAmount,
-        status: order.status,
+        orderId: order?.orderId,
+        customerName: order?.customerName,
+        orderDate: order?.orderDate,
+        totalAmount: order?.totalAmount,
+        status: order?.status,
     }));
     console.log(filteredOrders);
     const {
@@ -133,8 +133,8 @@ export default function OrderList({ orders }) {
                                 hideSelectBtn
                                 orderBy={orderBy}
                                 heading={tableHeading}
-                                numSelected={selected.length}
-                                rowCount={filteredList.length}
+                                numSelected={selected?.length}
+                                rowCount={filteredList?.length}
                                 onRequestSort={handleRequestSort}
                             />
 
@@ -142,7 +142,7 @@ export default function OrderList({ orders }) {
                                 {filteredList.map((orderInfo) => (
                                     <OrderRow
                                         order={orderInfo}
-                                        key={orderInfo.orderId}
+                                        key={orderInfo?.orderId}
                                     />
                                 ))}
                             </TableBody>
@@ -153,7 +153,7 @@ export default function OrderList({ orders }) {
                 <Stack alignItems="center" my={4}>
                     <TablePagination
                         onChange={handleChangePage}
-                        count={Math.ceil(orderInfo.length / rowsPerPage)}
+                        count={Math.ceil(orderInfo?.length / rowsPerPage)}
                         page={page + 1}
                         rowsPerPage={rowsPerPage}
                         onPageChange={handleChangePage}
@@ -165,7 +165,7 @@ export default function OrderList({ orders }) {
     );
 }
 export const getStaticProps = async () => {
-    const orders = await api.orders();
+    const orders = await api?.orders();
     return {
         props: {
             orders,

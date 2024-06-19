@@ -61,9 +61,9 @@ const Section3 = ({ categories }) => {
                 {categories.map((item) => (
                     <Grid item lg={2} md={3} sm={4} xs={6} key={item.id}>
                         <CategoryCard1
-                            image={item.image}
-                            title={item.name}
-                            link={item.link}
+                            image={item?.image}
+                            title={item?.name}
+                            link={item?.link}
                         />
                     </Grid>
                 ))}

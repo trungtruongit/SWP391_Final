@@ -41,19 +41,19 @@ const Section1 = ({ carouselData }) => {
         visibleSlides={1}
         showArrow={false}
         sx={carouselStyles}
-        totalSlides={carouselData.length}
+        totalSlides={carouselData?.length}
       >
         {carouselData.map((item, ind) => (
           <CarouselCard4
             key={ind}
             mode="light"
-            title={item.title}
-            bgImage={item.imgUrl}
-            discount={item.discount}
-            category={item.category}
-            buttonLink={item.buttonLink}
-            buttonText={item.buttonText}
-            description={item.description}
+            title={item?.title}
+            bgImage={item?.imgUrl}
+            discount={item?.discount}
+            category={item?.category}
+            buttonLink={item?.buttonLink}
+            buttonText={item?.buttonText}
+            description={item?.description}
           />
         ))}
       </Carousel>
