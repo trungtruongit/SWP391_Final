@@ -162,11 +162,6 @@ const demos = [
     img: "/assets/images/landing/page-2.png",
   },
   {
-    id: 3,
-    path: "/fashion-shop-1",
-    img: "/assets/images/landing/page-3.png",
-  },
-  {
     id: 4,
     path: "/fashion-shop-2",
     img: "/assets/images/landing/home/fashion-2.jpg",

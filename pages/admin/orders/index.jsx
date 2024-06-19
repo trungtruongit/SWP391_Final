@@ -65,9 +65,10 @@ export default function OrderList({ orders }) {
     useEffect(() => {
         const fetchOrderInfo = async () => {
             setLoading(true);
+            const counterId = localStorage.getItem("counterId");
             try {
                 const responeOrderInfo = await axios.get(
-                    `https://four-gems-api-c21adc436e90.herokuapp.com/order?counterId=1`,
+                    `https://four-gems-api-c21adc436e90.herokuapp.com/order?counterId=${counterId}`,
                     {
                         headers: {
                             Authorization: "Bearer " + token, //the token is a variable which holds the token

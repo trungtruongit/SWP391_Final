@@ -164,7 +164,7 @@ export default function SellerList({ sellers }) {
                 <Stack alignItems="center" my={4}>
                     <TablePagination
                         onChange={handleChangePage}
-                        count={Math.ceil(customerInfo.length / rowsPerPage)}
+                        count={Math.ceil(customerInfo?.length / rowsPerPage)}
                         page={page + 1}
                         rowsPerPage={rowsPerPage}
                         onPageChange={handleChangePage}

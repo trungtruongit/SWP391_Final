@@ -223,16 +223,6 @@ const demoPageList = [
     page: "homepage",
   },
   {
-    imgUrl: "/assets/images/landing/page-3.png",
-    previewUrl: "/fashion-shop-1",
-    title: (
-      <>
-        Fashion <TitleBadge>(1)</TitleBadge>
-      </>
-    ),
-    page: "homepage",
-  },
-  {
     imgUrl: "/assets/images/landing/home/fashion-3.jpg",
     previewUrl: "/fashion-shop-3",
     title: (

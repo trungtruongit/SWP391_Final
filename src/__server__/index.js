@@ -13,7 +13,6 @@ import "./__db__/gift";
 import "./__db__/gadget";
 import "./__db__/health-beauty";
 import "./__db__/related-products";
-import "./__db__/fashion-1";
 import "./__db__/fashion-2";
 import "./__db__/fashion-3";
 import "./__db__/shop";

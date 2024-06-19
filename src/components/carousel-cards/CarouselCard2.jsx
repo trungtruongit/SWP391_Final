@@ -2,7 +2,7 @@ import { Favorite } from "@mui/icons-material";
 import { Box, Button, Grid, styled } from "@mui/material";
 import BazaarImage from "components/BazaarImage";
 import { H2, H3, H4, Paragraph } from "components/Typography";
-import Countdown from "pages-sections/fashion-shop-1/countdown"; // styled component
+
 
 const ContentWrapper = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
