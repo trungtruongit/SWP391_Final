@@ -2,7 +2,6 @@ import products from "data/product-database";
 import bazaarReactDatabase from "data/bazaar-react-database";
 import { products as gift } from "../gift/data";
 import { products as gadget } from "../gadget/data";
-import { products as market1 } from "../market-1/data";
 import { products as market2 } from "../market-2/data";
 import { products as fashion2 } from "../fashion-2/data";
 import { products as fashion3 } from "../fashion-3/data";
@@ -18,7 +17,6 @@ import {
 const dbProducts = [...bazaarReactDatabase, ...products]; // all used products in the bazaar template
 
 const productList = [
-  ...dbProducts,
   ...fashion2,
   ...fashion3,
   ...furniture,
@@ -28,7 +26,6 @@ const productList = [
   ...grocery2,
   ...grocery3,
   ...healthBeauty,
-  ...market1,
   ...market2,
   ...relatedProducts,
   ...frequentlyBoughtData,

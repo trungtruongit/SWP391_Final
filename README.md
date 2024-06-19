@@ -146,7 +146,6 @@ const navbarNavigations = [
     megaMenu: false,
     megaMenuWithSub: false,
     child: [
-      { title: "Super Store", url: "/market-1" },
       { title: "Furniture", url: "/furniture-shop" },
       { title: "Grocery-v1", url: "/grocery1" },
       { title: "Grocery-v2", url: "/grocery2" },

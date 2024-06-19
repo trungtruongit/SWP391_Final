@@ -3,7 +3,6 @@
 // HTTP CALL ARE MADE FROM utils/__api__
 // PLEASE READ THE DOC https://bazaar-doc.netlify.app/mockserver
 import Mock from "./mock";
-import "./__db__/market-1";
 import "./__db__/market-2";
 import "./__db__/furniture";
 import "./__db__/grocery-1";

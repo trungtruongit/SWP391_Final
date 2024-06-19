@@ -137,16 +137,6 @@ const Section3 = ({ filterDemo, setFilterDemo }) => {
 
 const demoPageList = [
   {
-    imgUrl: "/assets/images/landing/home/super-store.jpg",
-    previewUrl: "/market-1",
-    title: (
-      <>
-        Market <TitleBadge>(1)</TitleBadge>
-      </>
-    ),
-    page: "homepage",
-  },
-  {
     imgUrl: "/assets/images/landing/home/market-2.jpg",
     previewUrl: "/market-2",
     title: (

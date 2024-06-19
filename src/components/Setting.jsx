@@ -147,16 +147,6 @@ const Setting = () => {
 
 const demos = [
   {
-    id: 0,
-    path: "/market-1",
-    img: "/assets/images/landing/page-1.png",
-  },
-  {
-    id: 1,
-    path: "/market-2",
-    img: "/assets/images/landing/home/market-2.jpg",
-  },
-  {
     id: 2,
     path: "/grocery2",
     img: "/assets/images/landing/page-2.png",
