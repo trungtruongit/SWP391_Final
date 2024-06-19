@@ -17,7 +17,6 @@ import ShopLayout1 from "components/layouts/ShopLayout1";
 import ProductCard1List from "components/products/ProductCard1List";
 import ProductCard9List from "components/products/ProductCard9List";
 import ProductFilterCard from "components/products/ProductFilterCard";
-import productDatabase from "data/product-database";
 import axios from "axios";
 import { useRouter } from "next/router";
 
