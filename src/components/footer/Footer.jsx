@@ -35,7 +35,7 @@ const Footer = () => {
           <Box py={10} overflow="hidden">
             <Grid container spacing={3}>
               <Grid item lg={4} md={6} sm={6} xs={12}>
-                // logo fourgemsjywelry
+                // logo fourgemsjewelry
               </Grid>
 
               <Grid item lg={2} md={6} sm={6} xs={12}>
