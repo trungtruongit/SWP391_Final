@@ -109,24 +109,4 @@ const ProductDetails = (props) => {
   );
 };
 
-// export const getStaticPaths = async () => {
-//   const paths = await api.getSlugs();
-//   return {
-//     paths: paths,
-//     //indicates that no page needs be created at build time
-//     fallback: "blocking", //indicates the type of fallback
-//   };
-// };
-// export const getStaticProps = async ({ params }) => {
-//   const relatedProducts = await getRelatedProducts();
-//   const frequentlyBought = await getFrequentlyBought();
-//   const product = await api.getProduct(params.slug);
-//   return {
-//     props: {
-//       frequentlyBought,
-//       relatedProducts,
-//       product,
-//     },
-//   };
-// };
 export default ProductDetails;
