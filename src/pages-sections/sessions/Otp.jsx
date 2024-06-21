@@ -6,6 +6,7 @@ import BazaarImage from "components/BazaarImage";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { MuiOtpInput } from "mui-one-time-password-input";
+import React from 'react'
 const fbStyle = {
     background: "#3B5998",
     color: "white",
@@ -45,7 +46,7 @@ const Otp = () => {
         setPasswordVisibility((visible) => !visible);
     }, []);
     const nav = useRouter();
-    const [otp, setOtp] = useState("");
+    const [otp, setOtp] = React.useState('')
     const handleOtp = (newValue) => {
         setOtp(newValue);
     };

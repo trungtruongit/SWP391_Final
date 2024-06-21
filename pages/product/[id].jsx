@@ -6,14 +6,8 @@ import { H1 } from "components/Typography";
 import ShopLayout1 from "components/layouts/ShopLayout1";
 import ProductIntro from "components/products/ProductIntro";
 import ProductReview from "components/products/ProductReview";
-import RelatedProducts from "components/products/RelatedProducts";
 import ProductDescription from "components/products/ProductDescription";
 import CareAndMaintenance from "components/products/CareAndMaintenance";
-import {
-  getFrequentlyBought,
-  getRelatedProducts,
-} from "utils/__api__/related-products";
-import api from "utils/__api__/products";
 import axios from "axios"; // styled component
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
@@ -32,7 +26,6 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 
 // ===============================================================
 const ProductDetails = (props) => {
-  // const { frequentlyBought, relatedProducts, product } = props;
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState(0);
   const [product, setProduct] = useState({});
