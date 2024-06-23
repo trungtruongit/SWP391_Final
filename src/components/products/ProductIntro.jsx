@@ -11,8 +11,8 @@ import { currency } from "lib";
 
 // ================================================================
 const ProductIntro = ({ product }) => {
-    const { productId, price, productName, image, quantity, description } =
-        product;
+    const { productId, price, productName, image, description } = product;
+    console.log(image);
     const { state, dispatch } = useAppContext();
     const [selectedImage, setSelectedImage] = useState(0); // CHECK PRODUCT EXIST OR NOT IN THE CART
 
@@ -45,7 +45,7 @@ const ProductIntro = ({ product }) => {
                             bgcolor="white"
                             loading="eager"
                             objectFit="contain"
-                            src={image}
+                            src={image || "/assets/images/logo.png"}
                         />
                     </FlexBox>
                 </Grid>

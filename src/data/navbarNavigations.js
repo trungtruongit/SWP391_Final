@@ -7,38 +7,42 @@ const navbarNavigations = [
         megaMenu: false,
         megaMenuWithSub: false,
         url: "/",
+        withStaff: true,
     },
     {
         megaMenu: false,
         megaMenuWithSub: false,
         title: "Barcode",
         url: "/barcode",
+        withStaff: true,
+    },
+    {
+        megaMenu: false,
+        megaMenuWithSub: false,
+        title: "Support Ticket",
+        url: "/support-ticket",
+        common: true,
     },
     {
         megaMenu: false,
         megaMenuWithSub: false,
         title: "Buy Back",
         url: "/buy-back",
-    },
-
-    {
-        megaMenu: false,
-        megaMenuWithSub: false,
-        title: "Support Ticket",
-        url: "/support-ticket",
+        withStaff: false,
     },
     {
         megaMenu: false,
         megaMenuWithSub: false,
         title: "Warranty",
         url: "/warranty",
-
+        withStaff: false,
     },
     {
         megaMenu: false,
         megaMenuWithSub: false,
         title: "Logout",
         url: "/login",
+        common: true,
     },
 ];
 export default navbarNavigations;
