@@ -2802,6 +2802,11 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
+dm-howler@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.npmjs.org/dm-howler/-/dm-howler-2.2.4.tgz"
+  integrity sha512-h+iDEP/cyALeqWNtGdZZRwm3buSwaG26wzF6fCUGhvkF/yxYoWb8F/v7qN+urqdZw3wotZGO/01rDlzOxJUUGw==
+
 doctrine@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/doctrine/-/doctrine-2.1.0.tgz"
@@ -2860,6 +2865,31 @@ duplexer2@^0.1.2:
   integrity sha512-asLFVfWWtJ90ZyOUHMqk7/S2w2guQKxUI2itj3d92ADHhxUSbCMGi1f1cBcJ7xM1To+pE/Khbwo1yuNbMEPKeA==
   dependencies:
     readable-stream "^2.0.2"
+
+dynamsoft-camera-enhancer@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/dynamsoft-camera-enhancer/-/dynamsoft-camera-enhancer-4.0.3.tgz"
+  integrity sha512-90ERuovzOwZ8wQEcnKKfoGkWvkZ62hR7MuGA4i8H0j42pgwsU2NF8zsNyyPJ1NlqwpEFF1J5xYbEHk086Ca1xA==
+  dependencies:
+    dynamsoft-core "^3.2.10"
+
+dynamsoft-camera-enhancer@3.3.10-beta-202404222209:
+  version "3.3.10-beta-202404222209"
+  resolved "https://registry.npmjs.org/dynamsoft-camera-enhancer/-/dynamsoft-camera-enhancer-3.3.10-beta-202404222209.tgz"
+  integrity sha512-s4mwLslTT9XlKfEn8DD+ndzMqyYqNT/SbMWR6NNjOdcI4cod5Ij3tZTWFffcpjprX+0ZtwYBPJUHX19gtbKjzA==
+
+dynamsoft-core@^3.2.10:
+  version "3.2.30"
+  resolved "https://registry.npmjs.org/dynamsoft-core/-/dynamsoft-core-3.2.30.tgz"
+  integrity sha512-Yn1TmrRrZRlGl7uco4C+rYYuM/qENIvQWybVtKte+6MfUIKL3i50FppTKsv/GKY0hILrWSS7qtKMcWpF0sCUqA==
+
+dynamsoft-javascript-barcode@^9.6.42:
+  version "9.6.42"
+  resolved "https://registry.npmjs.org/dynamsoft-javascript-barcode/-/dynamsoft-javascript-barcode-9.6.42.tgz"
+  integrity sha512-aLb+zUv0l1/kZKJxCGSDU3iZTSIyxjhsK2pPBr2abGcakMGArhkCgOWZGPGDGQ5JsKvUM70MUlUs9C1H7dQbjw==
+  dependencies:
+    dm-howler "^2.2.4"
+    dynamsoft-camera-enhancer "3.3.10-beta-202404222209"
 
 electron-to-chromium@^1.4.477:
   version "1.4.505"
@@ -3911,6 +3941,11 @@ js-yaml@^4.1.0:
   dependencies:
     argparse "^2.0.1"
 
+jsbarcode@^3.11.3:
+  version "3.11.6"
+  resolved "https://registry.npmjs.org/jsbarcode/-/jsbarcode-3.11.6.tgz"
+  integrity sha512-G5TKGyKY1zJo0ZQKFM1IIMfy0nF2rs92BLlCz+cU4/TazIc4ZH+X1GYeDRt7TKjrYqmPfTjwTBkU/QnQlsYiuA==
+
 jsesc@^2.5.1:
   version "2.5.2"
   resolved "https://registry.npmjs.org/jsesc/-/jsesc-2.5.2.tgz"
@@ -4169,6 +4204,13 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
+
+next-barcode@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/next-barcode/-/next-barcode-1.5.0.tgz"
+  integrity sha512-Aj6ID/BRXBlL7sQgJbMcYQZx+sCxQLYx7+CXvh9wlnmtBP6ajVPmbXHs3Y+99JH9gfB+TH7PGadIzRR6YzQiNw==
+  dependencies:
+    jsbarcode "^3.11.3"
 
 next-i18next@^14.0.0:
   version "14.0.0"
@@ -4606,7 +4648,7 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-"react@^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0 || ^17.0 || ^18.0.0", "react@^15.5.4 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0", "react@^17.0.2 || ^18.0.0-0", "react@^17.x || ^18.x", react@^18.2.0, "react@>= 16.8 || 18.0.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>= 17.0.2", react@>=0.13, react@>=16.6.0, react@>=16.8, react@>=16.8.0, "react@15.x || 16.x || 17.x || 18.x":
+"react@^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0 || ^17.0 || ^18.0.0", "react@^15.5.4 || ^16.0.0 || ^17.0.0 || ^18.0.0", react@^16.11.0, "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0", "react@^17.0.2 || ^18.0.0-0", "react@^17.x || ^18.x", react@^18.2.0, "react@>= 16.8 || 18.0.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>= 17.0.2", react@>=0.13, react@>=16.6.0, react@>=16.8, react@>=16.8.0, react@>=17.0.2, "react@15.x || 16.x || 17.x || 18.x":
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -5356,6 +5398,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+use-scan-detection@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.npmjs.org/use-scan-detection/-/use-scan-detection-0.2.3.tgz"
+  integrity sha512-GbtTTovqPkoTCJeoFNcazTIgELZYobNS7bmBV1cuMVsIcpZ3QYMQ/YNgyShtMxrJUqbNctWjMrKxW0hWeDKUEA==
 
 use-sync-external-store@1.1.0:
   version "1.1.0"
