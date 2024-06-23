@@ -39,6 +39,11 @@ const OrderRow = ({ order }) => {
             console.log(e);
         }
     };
+    const handleViewOrderDetail = async () => {
+        console.log(orderId)
+        localStorage.setItem("orderId", orderId);
+        router.push(`/admin/orders/${orderId}`);
+    }
     const handleCancelUser = async () => {
         try {
             console.log(orderId)
@@ -105,7 +110,7 @@ const OrderRow = ({ order }) => {
                     </div>
                 ) : (
                     <>
-                        <StyledIconButton>
+                        <StyledIconButton onClick={() => handleViewOrderDetail()}>
                             <RemoveRedEye />
                         </StyledIconButton>
 

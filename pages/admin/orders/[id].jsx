@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 import { H3 } from "components/Typography";
 import VendorDashboardLayout from "components/layouts/vendor-dashboard";
 import { OrderDetails } from "pages-sections/admin";
-import api from "utils/__api__/dashboard"; // =============================================================================
+import api from "utils/__api__/dashboard";
+import {jwtDecode} from "jwt-decode";
+import axios from "axios"; // =============================================================================
 
 OrderEdit.getLayout = function getLayout(page) {
   return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
@@ -13,10 +15,34 @@ OrderEdit.getLayout = function getLayout(page) {
 export default function OrderEdit() {
   const { query } = useRouter();
   const [orderDetails, setOrderDetails] = useState(null);
+  const orderId = localStorage.getItem("orderId");
+  let token = "";
+  if (typeof localStorage !== "undefined") {
+    token = localStorage.getItem("token");
+  } else if (typeof sessionStorage !== "undefined") {
+    // Fallback to sessionStorage if localStorage is not supported
+    token = localStorage.getItem("token");
+  } else {
+    // If neither localStorage nor sessionStorage is supported
+    console.log("Web Storage is not supported in this environment.");
+  }
   useEffect(() => {
-    api.getOrder(query?.id).then((data) => setOrderDetails(data));
-  }, [query?.id]);
-
+    console.log(orderId);
+    const fetchOrderDetail = async () => {
+      try {
+        const resOrderDetail = await axios.get(`https://four-gems-api-c21adc436e90.herokuapp.com/order/${orderId}`, {
+          headers: {
+            Authorization: 'Bearer ' + token //the token is a variable which holds the token
+          }
+        });
+        setOrderDetails(resOrderDetail.data.data);
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fetchOrderDetail();
+  }, []);
+  console.log(orderDetails)
   if (!orderDetails) {
     return <h1>Loading...</h1>;
   }

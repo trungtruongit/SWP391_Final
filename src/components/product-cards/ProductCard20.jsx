@@ -5,7 +5,6 @@ import { useSnackbar } from "notistack";
 import { currency } from "lib";
 import { Box, Button, IconButton, Rating, styled } from "@mui/material";
 import { Favorite, FavoriteBorder, RemoveRedEye } from "@mui/icons-material";
-import { FlexRowCenter } from "components/flex-box";
 import { H4, Paragraph, Small } from "components/Typography";
 import { useAppContext } from "contexts/AppContext";
 import ProductViewDialog from "components/products/ProductViewDialog";
@@ -125,20 +124,6 @@ const ProductCard20 = ({ product }) => {
         <H4 fontWeight={700} py={0.5}>
           {currency(product.price)}
         </H4>
-
-        {/*<FlexRowCenter gap={1} mb={2}>*/}
-        {/*  <Rating*/}
-        {/*    name="read-only"*/}
-        {/*    value={product.rating || 4}*/}
-        {/*    readOnly*/}
-        {/*    sx={{*/}
-        {/*      fontSize: 14,*/}
-        {/*    }}*/}
-        {/*  />*/}
-        {/*  <Small fontWeight={600} color="grey.500">*/}
-        {/*    ({product.reviews.length})*/}
-        {/*  </Small>*/}
-        {/*</FlexRowCenter>*/}
 
         <Button
           fullWidth
