@@ -91,7 +91,7 @@ const BarCodeTest = () => {
             id: product.productId,
             name: product.productName,
             price: product.price,
-            imgUrl: convertBase64ToImage(product.image),
+            imgUrl: product.image,
             qty: 1,
         };
         dispatch({
