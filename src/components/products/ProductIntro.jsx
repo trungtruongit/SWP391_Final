@@ -11,8 +11,8 @@ import { currency } from "lib";
 
 // ================================================================
 const ProductIntro = ({ product }) => {
-    const { productId, price, productName, image, quantity, description } =
-        product;
+    const { productId, price, productName, image, description } = product;
+    console.log(image);
     const { state, dispatch } = useAppContext();
     const [selectedImage, setSelectedImage] = useState(0); // CHECK PRODUCT EXIST OR NOT IN THE CART
 
@@ -25,7 +25,7 @@ const ProductIntro = ({ product }) => {
             type: "CHANGE_CART_AMOUNT",
             payload: {
                 price,
-                qty: quantity,
+                qty: amount,
                 name: productName,
                 imgUrl: image,
                 productId,
@@ -45,7 +45,7 @@ const ProductIntro = ({ product }) => {
                             bgcolor="white"
                             loading="eager"
                             objectFit="contain"
-                            src={image}
+                            src={image || "/assets/images/logo.png"}
                         />
                     </FlexBox>
                 </Grid>
@@ -74,10 +74,6 @@ const ProductIntro = ({ product }) => {
                             fontSize: "25px",
                         }}
                     >
-                        {/*<FlexBox alignItems="center" mb={0}>*/}
-                        {/*  <Box>Brand:</Box>*/}
-                        {/*  <H2 ml={1}>Swarovski</H2>*/}
-                        {/*</FlexBox>*/}
                         <FlexBox
                             alignItems="center"
                             mb={2}
@@ -146,7 +142,7 @@ const ProductIntro = ({ product }) => {
 
                         <FlexBox alignItems="center" mb={2}>
                             <Box>Sold By:</Box>
-                            <Link href="/shops/fdfdsa">
+                            <Link href="/shops/fdfdsa" passHref>
                                 <a>
                                     <H6 ml={1}>Mobile Store</H6>
                                 </a>

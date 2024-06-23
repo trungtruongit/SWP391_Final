@@ -142,7 +142,7 @@ const Market = (props) => {
 
             // Attempt to decode the token
             const decoded = jwtDecode(token);
-            // console.log(decoded.counterId);
+            localStorage.setItem("role", decoded.role);
             localStorage.setItem("counterId", decoded?.counterId);
             const counterId = localStorage.getItem("counterId");
             if (decoded?.role === "staff") {
