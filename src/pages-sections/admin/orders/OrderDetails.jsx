@@ -10,13 +10,13 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
-import { format } from "date-fns";
 import { FlexBetween, FlexBox } from "components/flex-box";
 import { H5, H6, Paragraph, Span } from "components/Typography";
 import { currency } from "lib";
 
 // ===================================================================
 const OrderDetails = ({ order }) => {
+    console.log(order)
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -27,58 +27,18 @@ const OrderDetails = ({ order }) => {
         >
           <FlexBox alignItems="center" gap={4}>
             <Paragraph>
-              <Span color="grey.600">Order ID:</Span> {order.id}
+              <Span color="grey.600">Order ID:</Span> {order.orderId}
             </Paragraph>
 
             <Paragraph>
-              <Span color="grey.600">Placed on:</Span>{" "}
-              {format(new Date(order.createdAt), "dd MMM, yyyy")}
+              <Span color="grey.600">Placed on: </Span>
+                {order.orderDate}
             </Paragraph>
           </FlexBox>
 
-          <FlexBox
-            gap={3}
-            my={3}
-            flexDirection={{
-              sm: "row",
-              xs: "column",
-            }}
-          >
-            <TextField
-              fullWidth
-              color="info"
-              size="medium"
-              variant="outlined"
-              label="Add Product"
-              placeholder="Type product name"
-            />
+          
 
-            <TextField
-              select
-              fullWidth
-              color="info"
-              size="medium"
-              defaultValue={order.status}
-              label="Order Status"
-              inputProps={{
-                IconComponent: () => (
-                  <KeyboardArrowDown
-                    sx={{
-                      color: "grey.600",
-                      mr: 1,
-                    }}
-                  />
-                ),
-              }}
-            >
-              <MenuItem value="Processing">Processing</MenuItem>
-              <MenuItem value="Pending">Pending</MenuItem>
-              <MenuItem value="Delivered">Delivered</MenuItem>
-              <MenuItem value="Cancelled">Cancelled</MenuItem>
-            </TextField>
-          </FlexBox>
-
-          {order.items.map((item, index) => (
+          {order.orderItemList.map((item, index) => (
             <Box
               my={2}
               gap={2}
