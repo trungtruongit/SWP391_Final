@@ -7,7 +7,6 @@ import BazaarMenu from "components/BazaarMenu";
 import { FlexBox } from "components/flex-box";
 import { SearchOutlinedIcon, SearchResultCard } from "./styled";
 import axios from "axios";
-import { token } from "stylis";
 
 const DropDownHandler = styled(FlexBox)(({ theme }) => ({
   whiteSpace: "pre",

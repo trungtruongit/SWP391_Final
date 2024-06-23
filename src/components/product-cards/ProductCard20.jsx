@@ -9,148 +9,147 @@ import { FlexRowCenter } from "components/flex-box";
 import { H4, Paragraph, Small } from "components/Typography";
 import { useAppContext } from "contexts/AppContext";
 import ProductViewDialog from "components/products/ProductViewDialog";
-import { convertBase64ToImage } from "../../utils/convertBase64ToImage";
 // custom styled components
 const Card = styled(Box)(({ theme }) => ({
-  fontFamily: "Ubuntu",
-  borderRadius: "3px",
-  transition: "all 0.3s",
-  backgroundColor: theme.palette.common.white,
-  // backgroundColor: "red",
-  border: `1px solid ${theme.palette.grey[100]}`,
-  ":hover": {
-    "& .product-actions": {
-      right: 5,
+    fontFamily: "Ubuntu",
+    borderRadius: "3px",
+    transition: "all 0.3s",
+    backgroundColor: theme.palette.common.white,
+    // backgroundColor: "red",
+    border: `1px solid ${theme.palette.grey[100]}`,
+    ":hover": {
+        "& .product-actions": {
+            right: 5,
+        },
+        "& img": {
+            transform: "scale(1.1)",
+        },
+        border: `1px solid ${theme.palette.dark.main}`,
     },
-    "& img": {
-      transform: "scale(1.1)",
-    },
-    border: `1px solid ${theme.palette.dark.main}`,
-  },
 }));
 const CardMedia = styled(Box)(() => ({
-  width: "100%",
-  maxHeight: 300,
-  cursor: "pointer",
-  overflow: "hidden",
-  position: "relative",
-  "& img": {
-    transition: "0.3s",
-  },
+    width: "100%",
+    maxHeight: 300,
+    cursor: "pointer",
+    overflow: "hidden",
+    position: "relative",
+    "& img": {
+        transition: "0.3s",
+    },
 }));
 const AddToCartButton = styled(IconButton)(() => ({
-  top: 10,
-  right: -40,
-  position: "absolute",
-  transition: "right 0.3s .1s",
+    top: 10,
+    right: -40,
+    position: "absolute",
+    transition: "right 0.3s .1s",
 }));
 const FavouriteButton = styled(IconButton)(() => ({
-  top: 45,
-  right: -40,
-  position: "absolute",
-  transition: "right 0.3s .2s",
+    top: 45,
+    right: -40,
+    position: "absolute",
+    transition: "right 0.3s .2s",
 })); // ==============================================================
 
 // ==============================================================
 const ProductCard20 = ({ product }) => {
-  const { enqueueSnackbar } = useSnackbar();
-  const { state, dispatch } = useAppContext();
-  const [openDialog, setOpenDialog] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const cartItem = state.cart.find((item) => item.slug === product.slug); // handle favourite
+    const { enqueueSnackbar } = useSnackbar();
+    const { state, dispatch } = useAppContext();
+    const [openDialog, setOpenDialog] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const cartItem = state.cart.find((item) => item.slug === product.slug); // handle favourite
 
-  const handleFavorite = () => setIsFavorite((fav) => !fav); // handle add to cart
+    const handleFavorite = () => setIsFavorite((fav) => !fav); // handle add to cart
 
-  const handleAddToCart = (product) => {
-    const payload = {
-      id: product.productId,
-      name: product.productName,
-      price: product.price,
-      imgUrl: convertBase64ToImage(product.image),
-      qty: (cartItem?.quantity || 0) + 1,
+    const handleAddToCart = (product) => {
+        const payload = {
+            id: product.productId,
+            name: product.productName,
+            price: product.price,
+            imgUrl: product.image,
+            qty: (cartItem?.quantity || 0) + 1,
+        };
+        dispatch({
+            type: "CHANGE_CART_AMOUNT",
+            payload,
+        });
+        enqueueSnackbar("Added to Cart", {
+            variant: "success",
+        });
     };
-    dispatch({
-      type: "CHANGE_CART_AMOUNT",
-      payload,
-    });
-    enqueueSnackbar("Added to Cart", {
-      variant: "success",
-    });
-  };
 
-  return (
-    <Card height="100%">
-      <CardMedia>
-        <Link href={`/product/${product.productId}`}>
-          <a>
-            <Image
-              width={300}
-              height={300}
-              objectFit="cover"
-              layout="responsive"
-              className="product-img"
-              // src={decodeURIComponent(product?.image)}
-              src={convertBase64ToImage(product.image)}
-              alt="Loading"
+    return (
+        <Card height="100%">
+            <CardMedia>
+                <Link href={`/product/${product.productId}`}>
+                    <a>
+                        <Image
+                            width={300}
+                            height={300}
+                            objectFit="cover"
+                            layout="responsive"
+                            className="product-img"
+                            // src={decodeURIComponent(product?.image)}
+                            src={product.image}
+                            alt="Loading"
+                        />
+                    </a>
+                </Link>
+
+                <AddToCartButton
+                    className="product-actions"
+                    onClick={() => setOpenDialog(true)}
+                >
+                    <RemoveRedEye color="disabled" fontSize="small" />
+                </AddToCartButton>
+            </CardMedia>
+
+            <ProductViewDialog
+                openDialog={openDialog}
+                handleCloseDialog={() => setOpenDialog(false)}
+                product={{
+                    id: product.productId,
+                    slug: product.productName,
+                    title: product.productName,
+                    price: product.price,
+                    categoryItem: product.categoryItem,
+                    imgGroup: [
+                        product.image,
+                        product.image,
+                    ],
+                    description: product.description,
+                }}
             />
-          </a>
-        </Link>
+            <Box p={2} textAlign="center">
+                <Paragraph>{product.productName}</Paragraph>
+                <H4 fontWeight={700} py={0.5}>
+                    {currency(product.price)}
+                </H4>
 
-        <AddToCartButton
-          className="product-actions"
-          onClick={() => setOpenDialog(true)}
-        >
-          <RemoveRedEye color="disabled" fontSize="small" />
-        </AddToCartButton>
-      </CardMedia>
+                {/*<FlexRowCenter gap={1} mb={2}>*/}
+                {/*  <Rating*/}
+                {/*    name="read-only"*/}
+                {/*    value={product.rating || 4}*/}
+                {/*    readOnly*/}
+                {/*    sx={{*/}
+                {/*      fontSize: 14,*/}
+                {/*    }}*/}
+                {/*  />*/}
+                {/*  <Small fontWeight={600} color="grey.500">*/}
+                {/*    ({product.reviews.length})*/}
+                {/*  </Small>*/}
+                {/*</FlexRowCenter>*/}
 
-      <ProductViewDialog
-        openDialog={openDialog}
-        handleCloseDialog={() => setOpenDialog(false)}
-        product={{
-          id: product.productId,
-          slug: product.productName,
-          title: product.productName,
-          price: product.price,
-          categoryItem: product.categoryItem,
-          imgGroup: [
-            convertBase64ToImage(product.image),
-            convertBase64ToImage(product.image),
-          ],
-          description: product.description,
-        }}
-      />
-      <Box p={2} textAlign="center">
-        <Paragraph>{product.productName}</Paragraph>
-        <H4 fontWeight={700} py={0.5}>
-          {currency(product.price)}
-        </H4>
-
-        {/*<FlexRowCenter gap={1} mb={2}>*/}
-        {/*  <Rating*/}
-        {/*    name="read-only"*/}
-        {/*    value={product.rating || 4}*/}
-        {/*    readOnly*/}
-        {/*    sx={{*/}
-        {/*      fontSize: 14,*/}
-        {/*    }}*/}
-        {/*  />*/}
-        {/*  <Small fontWeight={600} color="grey.500">*/}
-        {/*    ({product.reviews.length})*/}
-        {/*  </Small>*/}
-        {/*</FlexRowCenter>*/}
-
-        <Button
-          fullWidth
-          color="dark"
-          variant="outlined"
-          onClick={() => handleAddToCart(product)}
-        >
-          Add To Cart
-        </Button>
-      </Box>
-    </Card>
-  );
+                <Button
+                    fullWidth
+                    color="dark"
+                    variant="outlined"
+                    onClick={() => handleAddToCart(product)}
+                >
+                    Add To Cart
+                </Button>
+            </Box>
+        </Card>
+    );
 };
 
 export default ProductCard20;

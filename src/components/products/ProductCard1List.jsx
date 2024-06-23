@@ -3,7 +3,6 @@ import { Grid, Pagination } from "@mui/material";
 import { FlexBetween } from "components/flex-box";
 import ProductCard1 from "components/product-cards/ProductCard1";
 import { Span } from "components/Typography";
-import { convertBase64ToImage } from "../../utils/convertBase64ToImage";
 
 // ========================================================
 const ProductCard1List = ({ products }) => {
@@ -16,7 +15,7 @@ const ProductCard1List = ({ products }) => {
                             id={item.productId}
                             title={item.productName}
                             price={item.price}
-                            imgUrl={convertBase64ToImage(item.image)}
+                            imgUrl={item.image}
                         />
                     </Grid>
                 ))}
