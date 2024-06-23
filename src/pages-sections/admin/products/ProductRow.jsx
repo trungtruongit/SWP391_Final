@@ -14,7 +14,6 @@ import {
 import axios from "axios";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
-import { convertBase64ToImage } from "../../../utils/convertBase64ToImage";
 import DropZone from "../../../components/DropZone";
 
 // ========================================================================
@@ -113,21 +112,16 @@ const ProductRow = ({ product }) => {
                     <DropZone
                         onChange={(files) => {
                             const file = files[0];
-                            convertBase64ToImage(file)
-                                .then((imageData) => {
-                                    setNewImage(imageData);
-                                })
-                                .catch((error) => {
-                                    console.error(
-                                        "Error converting image:",
-                                        error
-                                    );
-                                });
+                            file.then((imageData) => {
+                                setNewImage(imageData);
+                            }).catch((error) => {
+                                console.error("Error converting image:", error);
+                            });
                         }}
                     />
                 ) : (
                     <Avatar
-                        src={convertBase64ToImage(newImage)}
+                        src={newImage}
                         alt={productName}
                         sx={{
                             borderRadius: "8px",

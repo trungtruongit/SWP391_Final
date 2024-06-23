@@ -1,15 +1,16 @@
 module.exports = {
-  devIndicators: {},
-  publicRuntimeConfig: {
-    // Available on both server and client
-    theme: "DEFAULT",
-    currency: "USD",
-  },
-  images: {
-    remotePatterns: [
-      {
-        hostname: 'picsum.photo',
-      },
-    ],
-  },
+    devIndicators: {},
+    publicRuntimeConfig: {
+        // Available on both server and client
+        theme: "DEFAULT",
+        currency: "USD",
+    },
+    images: {
+        domains: ["firebasestorage.googleapis.com"],
+        remotePatterns: [
+            {
+                hostname: "picsum.photo",
+            },
+        ],
+    },
 };
