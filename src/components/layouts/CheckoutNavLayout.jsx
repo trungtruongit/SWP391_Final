@@ -35,6 +35,8 @@ const CheckoutNavLayout = ({ children }) => {
         router.push("/orders");
         break;
 
+
+
       default:
         break;
     }
