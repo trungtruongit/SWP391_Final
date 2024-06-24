@@ -1,10 +1,11 @@
-import { createContext, useContext, useMemo, useReducer } from "react"; // =================================================================================
+import { createContext, useContext, useMemo, useReducer } from "react";
 
-// =================================================================================
 const INITIAL_CART = [];
 const INITIAL_STATE = {
   cart: INITIAL_CART,
+  totalQuantity: 0,
 };
+
 const AppContext = createContext({
   state: INITIAL_STATE,
   dispatch: () => {},
@@ -13,31 +14,42 @@ const AppContext = createContext({
 const reducer = (state, action) => {
   switch (action.type) {
     case "CHANGE_CART_AMOUNT":
-      let cartList = state.cart;
-      let cartItem = action.payload;
-      let exist = cartList.find((item) => item.id === cartItem.id);
+      const cartList = state.cart;
+      const cartItem = action.payload;
+      const exist = cartList.find((item) => item.id === cartItem.id);
 
       if (cartItem.qty < 1) {
         const filteredCart = cartList.filter((item) => item.id !== cartItem.id);
-        return { ...state, cart: filteredCart };
-      } // IF PRODUCT ALREADY EXITS IN CART
+        return {
+          ...state,
+          cart: filteredCart,
+          totalQuantity: state.totalQuantity - 1,
+        };
+      }
 
       if (exist) {
         const newCart = cartList.map((item) =>
           item.id === cartItem.id ? { ...item, qty: cartItem.qty } : item
         );
-        return { ...state, cart: newCart };
+        return {
+          ...state,
+          cart: newCart,
+          totalQuantity: state.totalQuantity + 1,
+        };
       }
 
-      return { ...state, cart: [...cartList, cartItem] };
+      return {
+        ...state,
+        cart: [...cartList, cartItem],
+        totalQuantity: state.totalQuantity + 1,
+      };
 
     default: {
       return state;
     }
   }
-}; // =======================================================
+};
 
-// =======================================================
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const contextValue = useMemo(
@@ -51,5 +63,6 @@ export const AppProvider = ({ children }) => {
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   );
 };
+
 export const useAppContext = () => useContext(AppContext);
 export default AppContext;
