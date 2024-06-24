@@ -24,8 +24,8 @@ PromotionList.getLayout = function getLayout(page) {
     return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
 };
 
-export default function PromotionList({ initialPromotions }) {
-    const [promotions, setPromotions] = useState(initialPromotions);
+export default function PromotionList() {
+    const [promotions, setPromotions] = useState();
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const [dataSearch, setDataSearch] = useState("");
@@ -33,12 +33,16 @@ export default function PromotionList({ initialPromotions }) {
     let token = "";
     if (typeof localStorage !== "undefined") {
         token = localStorage.getItem("token");
+    } else if (typeof sessionStorage !== "undefined") {
+        // Fallback to sessionStorage if localStorage is not supported
+        token = localStorage.getItem("token");
+    } else {
+        // If neither localStorage nor sessionStorage is supported
+        console.log("Web Storage is not supported in this environment.");
     }
-
     const handleNav = () => {
         router.push("/admin/promotions/create");
     };
-
     const {
         order,
         orderBy,
@@ -66,6 +70,7 @@ export default function PromotionList({ initialPromotions }) {
                     }
                 );
                 setPromotions(response.data.data);
+                console.log(response.data.data);
             } catch (error) {
                 console.error("Failed to fetch promotions:", error);
             } finally {
@@ -140,7 +145,7 @@ export default function PromotionList({ initialPromotions }) {
                 <Stack alignItems="center" my={4}>
                     <TablePagination
                         onChange={handleChangePage}
-                        count={Math.ceil(promotions.length / rowsPerPage)}
+                        count={Math.ceil(promotions?.length / rowsPerPage)}
                         page={page + 1}
                         rowsPerPage={rowsPerPage}
                         onPageChange={handleChangePage}

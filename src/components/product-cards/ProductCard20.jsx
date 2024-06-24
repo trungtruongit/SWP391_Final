@@ -4,8 +4,7 @@ import Image from "next/image";
 import { useSnackbar } from "notistack";
 import { currency } from "lib";
 import { Box, Button, IconButton, Rating, styled } from "@mui/material";
-import { Favorite, FavoriteBorder, RemoveRedEye } from "@mui/icons-material";
-import { FlexRowCenter } from "components/flex-box";
+import { RemoveRedEye } from "@mui/icons-material";
 import { H4, Paragraph, Small } from "components/Typography";
 import { useAppContext } from "contexts/AppContext";
 import ProductViewDialog from "components/products/ProductViewDialog";
@@ -15,7 +14,6 @@ const Card = styled(Box)(({ theme }) => ({
     borderRadius: "3px",
     transition: "all 0.3s",
     backgroundColor: theme.palette.common.white,
-    // backgroundColor: "red",
     border: `1px solid ${theme.palette.grey[100]}`,
     ":hover": {
         "& .product-actions": {
@@ -88,7 +86,6 @@ const ProductCard20 = ({ product }) => {
                             objectFit="cover"
                             layout="responsive"
                             className="product-img"
-                            // src={decodeURIComponent(product?.image)}
                             src={product.image}
                             alt="Loading"
                         />
@@ -124,20 +121,6 @@ const ProductCard20 = ({ product }) => {
                 <H4 fontWeight={700} py={0.5}>
                     {currency(product.price)}
                 </H4>
-
-                {/*<FlexRowCenter gap={1} mb={2}>*/}
-                {/*  <Rating*/}
-                {/*    name="read-only"*/}
-                {/*    value={product.rating || 4}*/}
-                {/*    readOnly*/}
-                {/*    sx={{*/}
-                {/*      fontSize: 14,*/}
-                {/*    }}*/}
-                {/*  />*/}
-                {/*  <Small fontWeight={600} color="grey.500">*/}
-                {/*    ({product.reviews.length})*/}
-                {/*  </Small>*/}
-                {/*</FlexRowCenter>*/}
 
                 <Button
                     fullWidth
