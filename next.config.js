@@ -1,4 +1,7 @@
-module.exports = {
+const withTM = require("next-transpile-modules")([
+    "mui-one-time-password-input",
+]);
+module.exports = withTM({
     devIndicators: {},
     publicRuntimeConfig: {
         // Available on both server and client
@@ -13,4 +16,4 @@ module.exports = {
             },
         ],
     },
-};
+});
