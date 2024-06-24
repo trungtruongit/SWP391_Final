@@ -85,7 +85,7 @@ const BarCodeTest = () => {
             fetchProByBarCode();
         }
     }, [barCode, token]);
-
+    console.log(barCode)
     const handleAddToCart = (product) => {
         const payload = {
             id: product.productId,
