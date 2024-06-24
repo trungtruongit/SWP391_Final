@@ -5,10 +5,7 @@ import Container from "@mui/material/Container";
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import {
-  KeyboardArrowDown,
-  MonetizationOn,
-} from "@mui/icons-material";
+import { KeyboardArrowDown, MonetizationOn } from "@mui/icons-material";
 import clsx from "clsx";
 import Image from "components/BazaarImage";
 import { FlexBox } from "components/flex-box";
@@ -22,7 +19,7 @@ import { useAppContext } from "contexts/AppContext";
 import Login from "pages-sections/sessions/Login";
 import { layoutConstant } from "utils/constants";
 import SearchBox from "../search-box/SearchBox";
-import { useRouter } from "next/router"; // styled component
+import { useRouter } from "next/router";
 
 export const HeaderWrapper = styled(Box)(({ theme }) => ({
   zIndex: 3,
@@ -33,9 +30,8 @@ export const HeaderWrapper = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     height: layoutConstant.mobileHeaderHeight,
   },
-})); // ==============================================================
+}));
 
-// ==============================================================
 const Header = ({ isFixed, className, searchBoxType = "type1" }) => {
   const theme = useTheme();
   const { state } = useAppContext();
@@ -44,11 +40,12 @@ const Header = ({ isFixed, className, searchBoxType = "type1" }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const downMd = useMediaQuery(theme.breakpoints.down(1150));
   const router = useRouter();
+
   const handleLink = () => {
     router.push("/goldpage/goldpage");
   };
-  const toggleDialog = () => setDialogOpen(!dialogOpen);
 
+  const toggleDialog = () => setDialogOpen(!dialogOpen);
   const toggleSidenav = () => setSidenavOpen(!sidenavOpen);
 
   return (
@@ -119,22 +116,7 @@ const Header = ({ isFixed, className, searchBoxType = "type1" }) => {
             <MonetizationOn />
           </Box>
 
-          {/*<Box*/}
-          {/*    component={IconButton}*/}
-          {/*    p={1.25}*/}
-          {/*    ml={2.5}*/}
-          {/*    bgcolor="grey.200"*/}
-          {/*    onClick={toggleDialog}*/}
-          {/*    sx={{*/}
-          {/*      '&:hover': {*/}
-          {/*        backgroundColor: '#FFFFFF',*/}
-          {/*      },*/}
-          {/*    }}*/}
-          {/*>*/}
-          {/*  <PersonOutline />*/}
-          {/*</Box>*/}
-
-          <Badge badgeContent={state.cart.length} color="primary">
+          <Badge badgeContent={state.totalQuantity} color="primary">
             <Box
               ml={2.5}
               p={1.25}

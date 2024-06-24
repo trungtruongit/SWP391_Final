@@ -18,31 +18,26 @@ const reducer = (state, action) => {
       const cartItem = action.payload;
       const exist = cartList.find((item) => item.id === cartItem.id);
 
+      let newCart;
+      let totalQuantity;
+
       if (cartItem.qty < 1) {
-        const filteredCart = cartList.filter((item) => item.id !== cartItem.id);
-        return {
-          ...state,
-          cart: filteredCart,
-          totalQuantity: state.totalQuantity - 1,
-        };
+        newCart = cartList.filter((item) => item.id !== cartItem.id);
+        totalQuantity = newCart.reduce((acc, item) => acc + item.qty, 0);
+        return { ...state, cart: newCart, totalQuantity };
       }
 
       if (exist) {
-        const newCart = cartList.map((item) =>
+        newCart = cartList.map((item) =>
           item.id === cartItem.id ? { ...item, qty: cartItem.qty } : item
         );
-        return {
-          ...state,
-          cart: newCart,
-          totalQuantity: state.totalQuantity + 1,
-        };
+        totalQuantity = newCart.reduce((acc, item) => acc + item.qty, 0);
+        return { ...state, cart: newCart, totalQuantity };
       }
 
-      return {
-        ...state,
-        cart: [...cartList, cartItem],
-        totalQuantity: state.totalQuantity + 1,
-      };
+      newCart = [...cartList, { ...cartItem, qty: 1 }];
+      totalQuantity = newCart.reduce((acc, item) => acc + item.qty, 0);
+      return { ...state, cart: newCart, totalQuantity };
 
     default: {
       return state;
