@@ -23,7 +23,7 @@ const Section4 = ({ products }) => {
         <Container
             sx={{
                 py: 8,
-                mt: -8,
+                mt: -2,
             }}
         >
             <FlexBetween mb={3}>

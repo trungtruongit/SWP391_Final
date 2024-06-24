@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { Box, Container, styled, Tab, Tabs } from "@mui/material";
 import { H1, H2 } from "components/Typography";
 import ShopLayout1 from "components/layouts/ShopLayout1";
-import RelatedProducts from "components/products/RelatedProducts";
 import GoldPriceTable from "./gold-price-table";
 
 import axios from "axios";
@@ -23,14 +22,11 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 }));
 
 const GoldPage = (props) => {
-    const { frequentlyBought, relatedProducts, product } = props;
     const router = useRouter();
     const [selectedOption, setSelectedOption] = useState(0);
     const [goldType, setGoldType] = useState(null);
     const [VNDPrice, setVNDPrice] = useState(null);
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [httpError, setHttpError] = useState(null);
     useEffect(() => {
         const fetchVNDPrice = async () => {
             try {

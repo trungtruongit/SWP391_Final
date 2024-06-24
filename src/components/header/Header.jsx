@@ -7,7 +7,6 @@ import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import {
   KeyboardArrowDown,
-  PersonOutline,
   MonetizationOn,
 } from "@mui/icons-material";
 import clsx from "clsx";

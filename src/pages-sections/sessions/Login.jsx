@@ -6,7 +6,6 @@ import { useFormik } from "formik";
 import { H1, H6 } from "components/Typography";
 import BazaarImage from "components/BazaarImage";
 import BazaarTextField from "components/BazaarTextField";
-import SocialButtons from "./SocialButtons";
 import EyeToggleButton from "./EyeToggleButton";
 import { FlexBox, FlexRowCenter } from "components/flex-box";
 import axios from "axios";
@@ -58,10 +57,11 @@ const Login = () => {
         // if
         // http://localhost:8080/user/signin?username=${email}&password=${password}
         const { email, password } = values;
+
         console.log(
             `http://localhost:8080/user/signin?username=${email}&password=${password}`
         );
-
+        localStorage.setItem("username", email);
         try {
             const response = await axios.post(
                 `https://four-gems-api-c21adc436e90.herokuapp.com/user/signin?username=${email}&password=${password}`,
@@ -70,13 +70,17 @@ const Login = () => {
                     password: password,
                 }
             );
-            console.log(response.data.data);
+            console.log(response.data.data !== undefined);
+            // if (response.data.data !== "") {
+            //     console.log("successfully logged in");
+
+            //     nav.push("/");
+            // } else {
+            //     console.log("error");
+            // }
             if (response.data.data !== "") {
                 console.log("successfully logged in");
-                localStorage.setItem("token", response.data.data);
-                nav.push("/");
-            } else {
-                console.log("error");
+                nav.push("/otp");
             }
         } catch (e) {
             console.log(e);

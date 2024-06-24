@@ -1,9 +1,6 @@
 import { Box, useTheme } from "@mui/material";
 import SEO from "components/SEO";
 import Setting from "components/Setting";
-import Section1 from "pages-sections/market-2/Section1";
-import Section2 from "pages-sections/market-2/Section2";
-import Section3 from "pages-sections/market-2/Section3";
 import Section5 from "pages-sections/market-2/Section5";
 import Section6 from "pages-sections/market-2/Section6";
 import Section7 from "pages-sections/market-2/Section7";
@@ -15,7 +12,6 @@ import { useRouter } from "next/router"; // ====================================
 import { H1 } from "components/Typography";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { Api } from "@mui/icons-material";
 import axios from "axios";
 
 // =======================================================
@@ -146,7 +142,7 @@ const Market = (props) => {
 
             // Attempt to decode the token
             const decoded = jwtDecode(token);
-            // console.log(decoded.counterId);
+            localStorage.setItem("role", decoded.role);
             localStorage.setItem("counterId", decoded?.counterId);
             const counterId = localStorage.getItem("counterId");
             if (decoded?.role === "staff") {
@@ -163,13 +159,13 @@ const Market = (props) => {
             <SEO title="FourGemsShop" />
             <Box bgcolor="#FFFFFF">
                 {/* HERO SLIDER AND GRID */}
-                <Section1 carouselData={props?.mainCarouselData} />
+                {/* <Section1 carouselData={props?.mainCarouselData} /> */}
 
                 {/* SERVICE CARDS */}
-                <Section2 serviceList={props?.serviceList} />
+                {/* <Section2 serviceList={props?.serviceList} /> */}
 
                 {/* CATEGORIES AND ANIMATED OFFER BANNER */}
-                <Section3 categories={props?.categories} />
+                {/* <Section3 categories={props?.categories} /> */}
 
                 {/* Necklaces */}
                 <Section5 products={showNecklaceProduct} />

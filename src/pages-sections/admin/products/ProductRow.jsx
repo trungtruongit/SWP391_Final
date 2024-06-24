@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { Delete, Edit, RemoveRedEye } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
 import { Avatar, Box, Button, MenuItem, TextField } from "@mui/material";
 import { FlexBox } from "components/flex-box";
 import BazaarSwitch from "components/BazaarSwitch";
-import { Paragraph, Small } from "components/Typography";
 import { currency } from "lib";
 import {
     StyledTableRow,
@@ -15,7 +14,6 @@ import {
 import axios from "axios";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
-import { convertBase64ToImage } from "../../../utils/convertBase64ToImage";
 import DropZone from "../../../components/DropZone";
 
 // ========================================================================
@@ -114,21 +112,16 @@ const ProductRow = ({ product }) => {
                     <DropZone
                         onChange={(files) => {
                             const file = files[0];
-                            convertBase64ToImage(file)
-                                .then((imageData) => {
-                                    setNewImage(imageData);
-                                })
-                                .catch((error) => {
-                                    console.error(
-                                        "Error converting image:",
-                                        error
-                                    );
-                                });
+                            file.then((imageData) => {
+                                setNewImage(imageData);
+                            }).catch((error) => {
+                                console.error("Error converting image:", error);
+                            });
                         }}
                     />
                 ) : (
                     <Avatar
-                        src={convertBase64ToImage(newImage)}
+                        src={newImage}
                         alt={productName}
                         sx={{
                             borderRadius: "8px",
