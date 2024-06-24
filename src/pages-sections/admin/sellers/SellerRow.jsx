@@ -1,83 +1,69 @@
-import { useState } from "react";
-import { Delete, Edit, RemoveRedEye } from "@mui/icons-material";
-import { Avatar, Box } from "@mui/material";
-import { FlexBox } from "components/flex-box";
-import BazaarSwitch from "components/BazaarSwitch";
-import { Paragraph, Small } from "components/Typography";
-import {
-  StyledIconButton,
-  StyledTableCell,
-  StyledTableRow,
-} from "../StyledComponents";
-import { currency } from "lib"; // ========================================================================
+import {useEffect, useState} from 'react';
+import {RemoveRedEye} from '@mui/icons-material';
+import {Avatar, Box} from '@mui/material';
+import {StyledIconButton, StyledTableCell, StyledTableRow} from '../StyledComponents';
+import UserDetailPopup from './Popup';
 
-// ========================================================================
-const SellerRow = ({ seller }) => {
-  const {
-    name,
-    phone,
-    image,
-    balance,
-    published,
-    shopName,
-    package: sellerPackage,
-  } = seller;
-  const [shopPulish, setShopPublish] = useState(published);
-  return (
-    <StyledTableRow tabIndex={-1} role="checkbox">
-      <StyledTableCell align="left">
-        <FlexBox alignItems="center" gap={1.5}>
-          <Avatar src={image} alt={name} />
-          <Box>
-            <Paragraph>{name}</Paragraph>
-            <Small color="grey.600">{phone}</Small>
-          </Box>
-        </FlexBox>
-      </StyledTableCell>
+const SellerRow = ({user, onUserClick}) => {
+    const {fullName, username, email, roleName, revenue} = user;
+    const [showPopup, setShowPopup] = useState(false);
+    const [userDetail, setUserDetail] = useState(null);
+    const [token, setToken] = useState('');
 
-      <StyledTableCell align="left">{shopName}</StyledTableCell>
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+            setToken(storedToken);
+        } else {
+            console.error('No token found');
+        }
+    }, []);
 
-      <StyledTableCell
-        align="left"
-        sx={{
-          fontWeight: 400,
-        }}
-      >
-        {sellerPackage}
-      </StyledTableCell>
+    const handleRowClick = async () => {
+        try {
+            const response = await fetch(`https://four-gems-api-c21adc436e90.herokuapp.com/user/get-by-email?email=${email}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
-      <StyledTableCell
-        align="left"
-        sx={{
-          fontWeight: 400,
-        }}
-      >
-        {currency(balance)}
-      </StyledTableCell>
+            if (!response.ok) {
+                throw new Error('Failed to fetch user details');
+            }
 
-      <StyledTableCell align="left">
-        <BazaarSwitch
-          color="info"
-          checked={shopPulish}
-          onChange={() => setShopPublish((state) => !state)}
-        />
-      </StyledTableCell>
+            const responseData = await response.json();
+            const userData = responseData.data[0];
+            setUserDetail(userData);
+            setShowPopup(true);
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+            // Handle error state or display error message
+        }
+    };
 
-      <StyledTableCell align="center">
-        <StyledIconButton>
-          <Edit />
-        </StyledIconButton>
+    const handleClosePopup = () => {
+        setShowPopup(false);
+    };
 
-        <StyledIconButton>
-          <RemoveRedEye />
-        </StyledIconButton>
-
-        <StyledIconButton>
-          <Delete />
-        </StyledIconButton>
-      </StyledTableCell>
-    </StyledTableRow>
-  );
+    return (
+        <>
+            <StyledTableRow tabIndex={-1} role="checkbox" onClick={handleRowClick}>
+                <StyledTableCell align="left">{fullName}</StyledTableCell>
+                <StyledTableCell align="left">{username}</StyledTableCell>
+                <StyledTableCell align="left">{email}</StyledTableCell>
+                <StyledTableCell align="left">{roleName}</StyledTableCell>
+                <StyledTableCell align="left">${revenue.toFixed(2)}</StyledTableCell>
+                <StyledTableCell align="center">
+                    <StyledIconButton>
+                        <RemoveRedEye/>
+                    </StyledIconButton>
+                </StyledTableCell>
+            </StyledTableRow>
+            {showPopup && (
+                <UserDetailPopup user={userDetail} onClose={handleClosePopup}/>
+            )}
+        </>
+    );
 };
 
 export default SellerRow;
