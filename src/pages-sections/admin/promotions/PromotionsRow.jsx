@@ -10,6 +10,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "@mui/material";
+import {grey} from "../../../theme/themeColors";
 
 const PromotionRow = ({ promotion }) => {
     const { id, description, discount, endDate } = promotion;
@@ -67,7 +68,9 @@ const PromotionRow = ({ promotion }) => {
                     </div>
                 ) : (
                     <div>
-                        <StyledIconButton onClick={() => setEdit(!edit)}>
+                        <StyledIconButton sx={{
+                            color: "grey.600",
+                        }}  onClick={() => setEdit(!edit)}>
                             <Edit />
                         </StyledIconButton>
                     </div>

@@ -11,191 +11,137 @@ import {
   IconButton,
 } from "@mui/material";
 import { FlexBetween, FlexBox } from "components/flex-box";
-import { H5, H6, Paragraph, Span } from "components/Typography";
+import { H2, H5, H6, Paragraph, Span } from "components/Typography";
 import { currency } from "lib";
+import {jwtDecode} from "jwt-decode";
+import {token} from "stylis";
 
 // ===================================================================
 const OrderDetails = ({ order }) => {
-    console.log(order)
+  console.log(order);
+  let token = '';
+  if (typeof localStorage !== 'undefined') {
+    token = localStorage.getItem('token');
+  } else if (typeof sessionStorage !== 'undefined') {
+    // Fallback to sessionStorage if localStorage is not supported
+    token = localStorage.getItem('token');
+  } else {
+    // If neither localStorage nor sessionStorage is supported
+    console.log('Web Storage is not supported in this environment.');
+  }
+  const decoded = jwtDecode(token);
+  console.log(decoded)
+  order.orderItemList.map((item) => console.log(item.img));
+
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12}>
-        <Card
-          sx={{
-            p: 3,
-          }}
-        >
-          <FlexBox alignItems="center" gap={4}>
-            <Paragraph>
-              <Span color="grey.600">Order ID:</Span> {order.orderId}
-            </Paragraph>
-
-            <Paragraph>
-              <Span color="grey.600">Placed on: </Span>
-                {order.orderDate}
-            </Paragraph>
-          </FlexBox>
-
-          
-
-          {order.orderItemList.map((item, index) => (
-            <Box
-              my={2}
-              gap={2}
-              key={index}
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Card
               sx={{
-                display: "grid",
-                gridTemplateColumns: {
-                  md: "1fr 1fr",
-                  xs: "1fr",
-                },
+                p: 3,
               }}
-            >
-              <FlexBox flexShrink={0} gap={1.5} alignItems="center">
-                <Avatar
-                  src={item.product_img}
-                  sx={{
-                    height: 64,
-                    width: 64,
-                    borderRadius: "8px",
-                  }}
-                />
+          >
+            <FlexBox alignItems="center" gap={4} sx={{
+              justifyContent: "space-around",
+            }}>
+              <Paragraph>
+                <Span color="grey.600">Order ID:</Span>
+                {order.orderId}
+              </Paragraph>
 
-                <Box>
-                  <H6 mb={1}>{item.product_name}</H6>
+              <Paragraph>
+                <Span color="grey.600">Placed on: </Span>
+                {order.orderDate}
+              </Paragraph>
+              <Paragraph>
+                <Span color="grey.600">Create by: </Span>
+                {decoded.username}
+              </Paragraph>
+            </FlexBox>
 
-                  <FlexBox alignItems="center" gap={1}>
-                    <Paragraph fontSize={14} color="grey.600">
-                      {currency(item.product_price)} x
-                    </Paragraph>
-
-                    <Box maxWidth={60}>
-                      <TextField
-                        defaultValue={item.product_quantity}
-                        type="number"
-                        fullWidth
-                      />
-                    </Box>
-                  </FlexBox>
-                </Box>
-              </FlexBox>
-
-              <FlexBetween flexShrink={0}>
-                <Paragraph color="grey.600">
-                  Product properties: Black, L
-                </Paragraph>
-
-                <IconButton>
-                  <Delete
-                    sx={{
-                      color: "grey.600",
-                      fontSize: 22,
-                    }}
+            {order.orderItemList.map((item, index) => (
+                <FlexBox
+                    key={index}
+                    flexShrink={0}
+                    gap={1.5}
+                    alignItems="center"
+                    justifyContent="center"
+                    my={2}
+                >
+                  <Avatar
+                      src={item.img}
+                      sx={{
+                        height: 200,
+                        width: 200,
+                        borderRadius: "8px",
+                        marginLeft: "50px",
+                      }}
                   />
-                </IconButton>
-              </FlexBetween>
+
+                  <Box
+                      sx={{
+                        ml: 5,
+                        textAlign: "center",
+                      }}
+                  >
+                    <H2 mb={1}>{item.productName}</H2>
+
+                    <FlexBox alignItems="center" gap={3} justifyContent="center">
+                      <Paragraph
+                          fontSize={20}
+                          color="grey.600"
+                          sx={{
+                            textDecoration: "line-through",
+                          }}
+                      >
+                        {currency(item.price)} x
+                      </Paragraph>
+                      <Paragraph fontSize={20} color="primary.600">
+                        {currency(item.discountPrice)} x
+                      </Paragraph>
+                      <Box maxWidth={100}>
+                        <Paragraph fontSize={14} color="grey.600">
+                          {item.quantity}
+                        </Paragraph>
+                      </Box>
+                    </FlexBox>
+                  </Box>
+                </FlexBox>
+            ))}
+            <Box mt={4}>
+              <H5 mt={0} mb={4} textAlign="center">
+                Total Summary
+              </H5>
+
+              <Box mb={1.5} display="flex" justifyContent="space-between">
+                <Paragraph color="grey.600">Subtotal:</Paragraph>
+                <H6>{currency(order.priceBeforeVoucher)}</H6>
+              </Box>
+
+              <Box mb={1.5} display="flex" justifyContent="space-between">
+                <Paragraph color="grey.600">Voucher:</Paragraph>
+
+                <Box display="flex" alignItems="center" gap={1} maxWidth={100}>
+                  <Paragraph color="grey.600">{order.voucherPercent}%</Paragraph>
+                </Box>
+              </Box>
+
+              <Divider
+                  sx={{
+                    my: 2,
+                  }}
+              />
+
+              <Box mb={2} display="flex" justifyContent="space-between">
+                <H6>Total</H6>
+                <H6>{currency(order.totalAmount)}</H6>
+              </Box>
+
+              <Paragraph textAlign="center">Paid by {order.paymentMethod}</Paragraph>
             </Box>
-          ))}
-        </Card>
+          </Card>
+        </Grid>
       </Grid>
-
-      <Grid item md={6} xs={12}>
-        <Card
-          sx={{
-            px: 3,
-            py: 4,
-          }}
-        >
-          <TextField
-            rows={5}
-            multiline
-            fullWidth
-            color="info"
-            variant="outlined"
-            label="Shipping Address"
-            defaultValue={order.shippingAddress}
-            sx={{
-              mb: 4,
-            }}
-          />
-
-          <TextField
-            rows={5}
-            multiline
-            fullWidth
-            color="info"
-            variant="outlined"
-            label="Customer’s Note"
-            defaultValue="Please deliver ASAP."
-          />
-        </Card>
-      </Grid>
-
-      <Grid item md={6} xs={12}>
-        <Card
-          sx={{
-            px: 3,
-            py: 4,
-          }}
-        >
-          <H5 mt={0} mb={2}>
-            Total Summary
-          </H5>
-
-          <FlexBetween mb={1.5}>
-            <Paragraph color="grey.600">Subtotal:</Paragraph>
-            <H6>{currency(order.totalPrice)}</H6>
-          </FlexBetween>
-
-          <FlexBetween mb={1.5}>
-            <Paragraph color="grey.600">Shipping fee:</Paragraph>
-
-            <FlexBox alignItems="center" gap={1} maxWidth={100}>
-              <Paragraph>$</Paragraph>
-              <TextField
-                color="info"
-                defaultValue={10}
-                type="number"
-                fullWidth
-              />
-            </FlexBox>
-          </FlexBetween>
-
-          <FlexBetween mb={1.5}>
-            <Paragraph color="grey.600">Discount(%):</Paragraph>
-
-            <FlexBox alignItems="center" gap={1} maxWidth={100}>
-              <Paragraph>$</Paragraph>
-              <TextField
-                color="info"
-                defaultValue={order.discount}
-                type="number"
-                fullWidth
-              />
-            </FlexBox>
-          </FlexBetween>
-
-          <Divider
-            sx={{
-              my: 2,
-            }}
-          />
-
-          <FlexBetween mb={2}>
-            <H6>Total</H6>
-            <H6>{currency(order.totalPrice)}</H6>
-          </FlexBetween>
-
-          <Paragraph>Paid by Credit/Debit Card</Paragraph>
-        </Card>
-      </Grid>
-
-      <Grid item xs={12}>
-        <Button variant="contained" color="info">
-          Save Changes
-        </Button>
-      </Grid>
-    </Grid>
   );
 };
 
