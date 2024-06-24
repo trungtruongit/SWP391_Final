@@ -1,13 +1,14 @@
-import {useEffect, useState} from "react";
-import {Formik} from "formik";
+import { useEffect, useState } from "react";
+import { Formik } from "formik";
 import axios from "axios";
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import React from 'react';
 import * as Yup from 'yup';
-import {TextField, Button, Grid, Card, MenuItem, Select, Chip, OutlinedInput, Box} from '@mui/material';
-import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
+import { TextField, Button, Grid, Card, MenuItem, Select, Chip, OutlinedInput, Box } from '@mui/material';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import AsyncSelect from 'react-select/async';
 
 const validationSchema = Yup.object().shape({
     productIdList: Yup.array().min(1, 'At least one product must be selected').required('Products are required'),
@@ -20,12 +21,28 @@ const PromotionForm = () => {
     const router = useRouter();
     const [availableProducts, setAvailableProducts] = useState([]);
     const [storedToken, setStoredToken] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const initialValues = {
         productIdList: [],
         description: '',
         discount: '',
         endDate: null,
+    };
+
+    const customStyles = {
+        option: (provided, state) => ({
+            ...provided,
+            color: state.isSelected ? 'white' : 'black', // Chỉnh màu chữ cho option được chọn và không được chọn
+            backgroundColor: state.isSelected ? 'blue' : 'white', // Chỉnh màu nền cho option được chọn và không được chọn
+            '&:hover': {
+                backgroundColor: 'lightgray', // Màu nền khi hover vào option
+            },
+        }),
+        singleValue: (provided) => ({
+            ...provided,
+            color: 'black', // Chỉnh màu chữ cho giá trị đang được chọn
+        }),
     };
 
     useEffect(() => {
@@ -39,17 +56,21 @@ const PromotionForm = () => {
 
         const fetchAvailableProducts = async () => {
             if (!storedToken) return;
+
+            let url = 'https://four-gems-api-c21adc436e90.herokuapp.com/product/get-product-available-for-add-promotion';
+
             try {
-                const response = await axios.get(
-                    'https://four-gems-api-c21adc436e90.herokuapp.com/product/get-product-available-for-add-promotion',
-                    {
-                        headers: {
-                            Authorization: `Bearer ${storedToken}`,
-                        }
+                const response = await axios.get(url, {
+                    headers: {
+                        Authorization: `Bearer ${storedToken}`,
                     }
-                );
+                });
+
                 if (isMounted) {
-                    setAvailableProducts(response.data.data);
+                    setAvailableProducts(response.data.data.map(product => ({
+                        value: product.productId.toString(),
+                        label: product.productName,
+                    })));
                 }
             } catch (error) {
                 console.error("Failed to fetch available products:", error);
@@ -65,7 +86,18 @@ const PromotionForm = () => {
         };
     }, [storedToken]);
 
-    const handleSubmit = async (values, {setSubmitting, setFieldError}) => {
+
+
+    const loadOptions = (inputValue, callback) => {
+        const filteredOptions = availableProducts.filter(product =>
+            product.label.toLowerCase().includes(inputValue.toLowerCase())
+        );
+        callback(filteredOptions);
+    };
+
+
+
+    const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
         if (!storedToken) {
             console.log("Token not available");
             setSubmitting(false);
@@ -89,7 +121,7 @@ const PromotionForm = () => {
                 }
             );
 
-            if (response.status === 200) {
+            if (response.status === 200 && response.data.data) {
                 await router.push("/admin/promotions");
             } else {
                 setFieldError('submit', 'Submission failed. Unexpected response from server.');
@@ -109,7 +141,7 @@ const PromotionForm = () => {
     };
 
     return (
-        <Card sx={{p: 6}}>
+        <Card sx={{ p: 6 }}>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -128,32 +160,20 @@ const PromotionForm = () => {
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={3}>
                             <Grid item sm={12} xs={12}>
-                                <Select
-                                    multiple
-                                    fullWidth
-                                    name="productIdList"
-                                    value={values.productIdList}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={!!touched.productIdList && !!errors.productIdList}
-                                    renderValue={(selected) => (
-                                        <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 0.5}}>
-                                            {selected.map((value) => (
-                                                <Chip key={value}
-                                                      label={availableProducts.find(p => p.productId === parseInt(value))?.productName}/>
-                                            ))}
-                                        </Box>
-                                    )}
-                                    input={<OutlinedInput label="Select Products"/>}
-                                >
-                                    {availableProducts.map((product) => (
-                                        <MenuItem key={product.productId} value={product.productId.toString()}>
-                                            {product.productName}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
+                                <AsyncSelect
+                                    isMulti
+                                    cacheOptions
+                                    defaultOptions
+                                    loadOptions={loadOptions}
+                                    onChange={(selectedOptions) => {
+                                        const selectedIds = selectedOptions.map(option => option.value);
+                                        setFieldValue('productIdList', selectedIds);
+                                    }}
+                                    styles={customStyles}
+                                />
+
                                 {touched.productIdList && errors.productIdList && (
-                                    <div style={{color: 'red', marginTop: '5px'}}>{errors.productIdList}</div>
+                                    <div style={{ color: 'red', marginTop: '5px' }}>{errors.productIdList}</div>
                                 )}
                             </Grid>
                             <Grid item sm={6} xs={12}>
@@ -206,7 +226,7 @@ const PromotionForm = () => {
                             </Grid>
                             {errors.submit && (
                                 <Grid item xs={12}>
-                                    <p style={{color: 'red'}}>{errors.submit}</p>
+                                    <p style={{ color: 'red' }}>{errors.submit}</p>
                                 </Grid>
                             )}
                             <Grid item sm={12} xs={12}>
