@@ -50,6 +50,7 @@
     "next": "12.2.2",
     "next-barcode": "^1.5.0",
     "next-i18next": "^14.0.0",
+    "next-transpile-modules": "^10.0.1",
     "notistack": "^2.0.8",
     "nprogress": "^0.2.0",
     "pure-react-carousel": "^1.30.1",
