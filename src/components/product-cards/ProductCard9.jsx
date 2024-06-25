@@ -164,10 +164,6 @@ ProductCard9.defaultProps = {
   imgUrl: "/assets/images/products/macbook.png",
   off: 50,
   rating: 0,
-  price: 450, // subcategories: [
-  //   { title: "Bike", url: "/#" },
-  //   { title: "Ducati", url: "/#" },
-  //   { title: "Motors", url: "/#" },
-  // ],
+  price: 450,
 };
 export default ProductCard9;
