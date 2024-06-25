@@ -145,7 +145,7 @@ const Market = (props) => {
             localStorage.setItem("role", decoded.role);
             localStorage.setItem("counterId", decoded?.counterId);
             const counterId = localStorage.getItem("counterId");
-            if (decoded?.role === "staff") {
+            if (decoded?.role === "staff" && decoded?.role === "QC") {
                 // Redirect to home page for staff
                 router.push("/");
             } else {
