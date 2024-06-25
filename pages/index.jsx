@@ -145,9 +145,11 @@ const Market = (props) => {
             localStorage.setItem("role", decoded.role);
             localStorage.setItem("counterId", decoded?.counterId);
             const counterId = localStorage.getItem("counterId");
-            if (decoded?.role === "staff" && decoded?.role === "QC") {
+            if (decoded?.role === "staff") {
                 // Redirect to home page for staff
                 router.push("/");
+            } else if (decoded?.role === "QC") {
+                router.push("/qcpage");
             } else {
                 router.push("/vendor/dashboard");
             }

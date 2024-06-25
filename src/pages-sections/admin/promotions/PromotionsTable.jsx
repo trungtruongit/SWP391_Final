@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Button,
+} from "@mui/material";
 import PromotionRow from "./PromotionsRow";
 
 const PromotionsTable = () => {
@@ -28,13 +37,12 @@ const PromotionsTable = () => {
         };
         fetchPromotions();
     }, [page, rowsPerPage]);
-
     const handleNextPage = () => {
-        setPage(prevPage => prevPage + 1);
+        setPage((prevPage) => prevPage + 1);
     };
 
     const handlePreviousPage = () => {
-        setPage(prevPage => Math.max(0, prevPage - 1));
+        setPage((prevPage) => Math.max(0, prevPage - 1));
     };
 
     return (
@@ -52,12 +60,21 @@ const PromotionsTable = () => {
                     </TableHead>
                     <TableBody>
                         {promotions.map((promotion) => (
-                            <PromotionRow key={promotion.promotionId} promotion={promotion} />
+                            <PromotionRow
+                                key={promotion.promotionId}
+                                promotion={promotion}
+                            />
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem' }}>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "1rem",
+                }}
+            >
                 <Button onClick={handlePreviousPage} disabled={page === 0}>
                     Previous
                 </Button>
