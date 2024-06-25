@@ -1,6 +1,6 @@
 import { Box, Card, Stack, Table, TableContainer } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
-import SearchArea from "components/dashboard/SearchArea";
+import SearchArea from "./SearchArea";
 import TableHeader from "components/data-table/TableHeader";
 import TablePagination from "components/data-table/TablePagination";
 import VendorDashboardLayout from "components/layouts/vendor-dashboard";
@@ -25,6 +25,7 @@ function getLayout(page) {
 
 export default function SellerList() {
   const [users, setUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
     const storedToken = localStorage.getItem('token'); // Assuming the token is stored in localStorage
 
@@ -59,14 +60,25 @@ export default function SellerList() {
   } = useMuiTable({
     listData: users,
   });
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredUsers = users.filter(user =>
+      user.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return getLayout(<Box py={4}>
     <H3 mb={2}>Sellers</H3>
 
     <SearchArea
-        handleSearch={() => {}}
-        buttonText=""
-        handleBtnClick={() => {}}
+        handleSearch={handleSearch}
         searchPlaceholder="Search Seller..."
+        dataSearch={searchQuery}
+        setDataSearch={setSearchQuery}
     />
 
     <Card>
@@ -88,7 +100,7 @@ export default function SellerList() {
             />
 
             <TableBody>
-              {filteredList.map((user, index) => (
+              {filteredUsers.map((user, index) => (
                   <SellerRow user={user} key={index} />
               ))}
             </TableBody>

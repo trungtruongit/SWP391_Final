@@ -15,26 +15,14 @@ const SearchArea = (props) => {
   } = props;
   const downSM = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   return (
-      <FlexBox mb={2} gap={2} justifyContent="space-between" flexWrap="wrap">
-        <SearchInput
-            placeholder={searchPlaceholder}
-            value={dataSearch}
-            onChange={(e) => setDataSearch(e.target.value)}
-        />
+    <FlexBox mb={2} gap={2} justifyContent="space-between" flexWrap="wrap">
+      <SearchInput
+        placeholder={searchPlaceholder}
+        value={dataSearch}
+        onChange={(e) => setDataSearch(e.target.value)}
+      />
 
-        <Button
-            color="info"
-            fullWidth={downSM}
-            variant="contained"
-            startIcon={<Add />}
-            onClick={handleBtnClick}
-            sx={{
-              minHeight: 44,
-            }}
-        >
-          {buttonText}
-        </Button>
-      </FlexBox>
+    </FlexBox>
   );
 };
 

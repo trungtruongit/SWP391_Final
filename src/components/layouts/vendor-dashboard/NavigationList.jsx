@@ -61,7 +61,7 @@ export const navigations = [
                 path: "/admin/sellers",
             },
             {
-                name: "Earning History",
+                name: "KPI Board",
                 path: "/admin/earning-history",
             },
         ],
