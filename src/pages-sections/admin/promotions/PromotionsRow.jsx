@@ -10,7 +10,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "@mui/material";
-import {grey} from "../../../theme/themeColors";
 
 const PromotionRow = ({ promotion }) => {
     const { id, description, discount, endDate } = promotion;
