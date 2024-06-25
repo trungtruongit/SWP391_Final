@@ -45,7 +45,7 @@ const OrderDetails = ({ order }) => {
               justifyContent: "space-around",
             }}>
               <Paragraph>
-                <Span color="grey.600">Order ID:</Span>
+                <Span color="grey.600">Order ID: </Span>
                 {order.orderId}
               </Paragraph>
 
@@ -100,7 +100,7 @@ const OrderDetails = ({ order }) => {
                         {currency(item.discountPrice)} x
                       </Paragraph>
                       <Box maxWidth={100}>
-                        <Paragraph fontSize={14} color="grey.600">
+                        <Paragraph fontSize={20} color="grey.600">
                           {item.quantity}
                         </Paragraph>
                       </Box>

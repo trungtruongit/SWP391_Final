@@ -148,6 +148,8 @@ const Market = (props) => {
             if (decoded?.role === "staff") {
                 // Redirect to home page for staff
                 router.push("/");
+            } else if (decoded?.role === "QC") {
+                router.push("/qcpage");
             } else {
                 router.push("/vendor/dashboard");
             }
