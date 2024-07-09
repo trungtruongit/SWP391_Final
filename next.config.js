@@ -1,6 +1,8 @@
+// next.config.js
 const withTM = require("next-transpile-modules")([
     "mui-one-time-password-input",
 ]);
+
 module.exports = withTM({
     devIndicators: {},
     publicRuntimeConfig: {

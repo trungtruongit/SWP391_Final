@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 import { H3 } from "components/Typography";
 import VendorDashboardLayout from "components/layouts/vendor-dashboard";
 import { OrderDetails } from "pages-sections/admin";
-import api from "utils/__api__/dashboard";
-import {jwtDecode} from "jwt-decode";
 import axios from "axios"; // =============================================================================
 
 OrderEdit.getLayout = function getLayout(page) {
@@ -30,7 +28,7 @@ export default function OrderEdit() {
     console.log(orderId);
     const fetchOrderDetail = async () => {
       try {
-        const resOrderDetail = await axios.get(`https://four-gems-api-c21adc436e90.herokuapp.com/order/${orderId}`, {
+        const resOrderDetail = await axios.get(`https://four-gems-system-790aeec3afd8.herokuapp.com/order/${orderId}`, {
           headers: {
             Authorization: 'Bearer ' + token //the token is a variable which holds the token
           }

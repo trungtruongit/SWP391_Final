@@ -22,7 +22,7 @@ const PromotionsTable = () => {
         const fetchPromotions = async () => {
             try {
                 const response = await axios.get(
-                    `https://four-gems-api-c21adc436e90.herokuapp.com/promotions?startDate=01/12/2022&endDate=01/12/2024&description=Promotion%20For&page=${page}&size=${rowsPerPage}&discount&sort=discount&sortType=DESC`
+                    `https://four-gems-system-790aeec3afd8.herokuapp.com/promotions?startDate=01/12/2022&endDate=01/12/2024&description=Promotion%20For&page=${page}&size=${rowsPerPage}&discount&sort=discount&sortType=DESC`
                 );
                 if (response.data.length < rowsPerPage) {
                     setHasMore(false);
@@ -37,6 +37,7 @@ const PromotionsTable = () => {
         };
         fetchPromotions();
     }, [page, rowsPerPage]);
+
     const handleNextPage = () => {
         setPage((prevPage) => prevPage + 1);
     };

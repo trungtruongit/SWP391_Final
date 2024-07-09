@@ -1,11 +1,12 @@
-import NavbarQC from "../src/components/navbar/NavbarQC";
-import Topbar from "../src/components/topbar/Topbar";
+import QCDashboardLayout from "../src/components/layouts/customer-dashboard/QCPage";
+
+
 const QCPage = () => {
     return (
-        <div>
-            <Topbar />
-            <NavbarQC />
-        </div>
+        <QCDashboardLayout>
+
+        </QCDashboardLayout>
     );
 };
+
 export default QCPage;

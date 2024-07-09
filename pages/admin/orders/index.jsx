@@ -68,7 +68,7 @@ export default function OrderList({ orders }) {
             const counterId = localStorage.getItem("counterId");
             try {
                 const responeOrderInfo = await axios.get(
-                    `https://four-gems-api-c21adc436e90.herokuapp.com/order?counterId=${counterId}`,
+                    `https://four-gems-system-790aeec3afd8.herokuapp.com/order?counterId=${counterId}`,
                     {
                         headers: {
                             Authorization: "Bearer " + token, //the token is a variable which holds the token
@@ -86,7 +86,7 @@ export default function OrderList({ orders }) {
         fetchOrderInfo();
     }, []);
     console.log(orderInfo);
-    const filteredOrders = orderInfo.map((order) => ({
+    const filteredOrders = orderInfo?.map((order) => ({
         orderId: order?.orderId,
         customerName: order?.customerName,
         orderDate: order?.orderDate,
@@ -115,8 +115,6 @@ export default function OrderList({ orders }) {
 
             <SearchOrder
                 handleSearch={() => {}}
-                buttonText="Create Order"
-                handleBtnClick={() => {}}
                 searchPlaceholder="Search Order..."
             />
 
